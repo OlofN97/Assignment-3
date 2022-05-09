@@ -12,8 +12,6 @@ public class Spawner : MonoBehaviour
     
     [SerializeField] Vector2 minMaxSpawnRadius = new Vector2(25, 45);
 
-    public int spawnedUnits;
-
     float spawnTimer;
 
     ObjectPool<Unit> unitPool;
@@ -30,12 +28,18 @@ public class Spawner : MonoBehaviour
             Vector2 circlePosition = Random.onUnitSphere * Random.Range(minMaxSpawnRadius.x, minMaxSpawnRadius.y);
             Vector3 spawnPosition = new Vector3(circlePosition.x, transform.position.y, circlePosition.y);
 
+            Unit spawnedUnit;
             if (useObjectPool)
-                unitPool.Pull(spawnPosition, Quaternion.identity);
+            {
+                spawnedUnit = unitPool.Pull(spawnPosition, Quaternion.identity);
+                spawnedUnit.SetThisPool(unitPool);
+            }
             else
-                Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+            {
+                spawnedUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+            }
 
-            spawnedUnits++;
+            spawnedUnit.Initialise();
 
             spawnTimer -= timeBetweenSpawns;
         }

@@ -1,18 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    float timer;
+
+    ObjectPool<Unit> thisPool;
+
+    public void SetThisPool(ObjectPool<Unit> value) => thisPool = value;
+
+    public void Initialise()
     {
-        
+        timer = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (timer >= 1)
+            Die();
+
+        timer += Time.deltaTime;
+    }
+
+    void Die()
+    {
+        if (thisPool != null)
+            thisPool.DisableObject(this);
+        else
+            Destroy(gameObject);
     }
 }

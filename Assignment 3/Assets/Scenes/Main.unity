@@ -168,9 +168,8 @@ MonoBehaviour:
     type: 3}
   useObjectPool: 1
   poolStartCapacity: 25
-  timeBetweenSpawns: 0.5
+  timeBetweenSpawns: 0.001
   minMaxSpawnRadius: {x: 25, y: 45}
-  spawnedUnits: 0
 --- !u!1 &1472181962
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,13 +246,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472181962}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1851307871
 GameObject:
   m_ObjectHideFlags: 0
