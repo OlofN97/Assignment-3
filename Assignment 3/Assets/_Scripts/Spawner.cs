@@ -12,6 +12,9 @@ public class Spawner : MonoBehaviour
     
     [SerializeField] Vector2 minMaxSpawnRadius = new Vector2(25, 45);
 
+    [SerializeField] GameObject Player;
+    [SerializeField] float distance;
+
     float spawnTimer;
 
     ObjectPool<Unit> unitPool;
@@ -25,25 +28,36 @@ public class Spawner : MonoBehaviour
     {
         while (spawnTimer >= timeBetweenSpawns && timeBetweenSpawns > 0)
         {
-            Vector2 circlePosition = Random.onUnitSphere * Random.Range(minMaxSpawnRadius.x, minMaxSpawnRadius.y);
-            Vector3 spawnPosition = new Vector3(circlePosition.x, transform.position.y, circlePosition.y);
+            Vector3 spawnPosition = Player.transform.position;
 
-            Unit spawnedUnit;
-            if (useObjectPool)
+            while (Vector3.Distance(spawnPosition, Player.transform.position) < distance)
             {
-                spawnedUnit = unitPool.Pull(spawnPosition, Quaternion.identity);
-                spawnedUnit.SetThisPool(unitPool);
-            }
-            else
-            {
-                spawnedUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
-            }
 
-            spawnedUnit.Initialise();
+                Vector2 circlePosition = Random.onUnitSphere * Random.Range(minMaxSpawnRadius.x, minMaxSpawnRadius.y);
+                spawnPosition = new Vector3(circlePosition.x, transform.position.y, circlePosition.y);
 
-            spawnTimer -= timeBetweenSpawns;
+                if (Vector3.Distance(spawnPosition, Player.transform.position) < distance)
+                    continue;
+
+                Unit spawnedUnit;
+                if (useObjectPool)
+                {
+                    spawnedUnit = unitPool.Pull(spawnPosition, Quaternion.identity);
+                    spawnedUnit.SetThisPool(unitPool);
+                }
+                else
+                {
+                    spawnedUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+                }
+
+                spawnedUnit.Initialise();
+
+                spawnTimer -= timeBetweenSpawns;
+
+            }
         }
 
         spawnTimer += Time.deltaTime;
+
     }
 }
