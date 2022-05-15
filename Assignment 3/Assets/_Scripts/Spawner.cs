@@ -4,7 +4,7 @@ public class Spawner : MonoBehaviour
 {
     public Unit unitToSpawn;
 
-    [SerializeField] bool useObjectPool = true;
+    private bool useObjectPool;
 
     [SerializeField] int poolStartCapacity = 25;
 
@@ -14,14 +14,21 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] GameObject Player;
     [SerializeField] float distance;
+    [SerializeField] Transform unitParent;
 
     float spawnTimer;
 
     ObjectPool<Unit> unitPool;
 
+    public bool UseObjectPool
+    {       
+        set { useObjectPool = value; }
+    }
+
     void Start()
     {
-        unitPool = new ObjectPool<Unit>(unitToSpawn, poolStartCapacity);
+        if (useObjectPool)
+            unitPool = new ObjectPool<Unit>(unitToSpawn, poolStartCapacity, unitParent);
     }
 
     void Update()
@@ -47,7 +54,7 @@ public class Spawner : MonoBehaviour
                 }
                 else
                 {
-                    spawnedUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+                    spawnedUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity, unitParent);
                 }
 
                 spawnedUnit.Initialise();

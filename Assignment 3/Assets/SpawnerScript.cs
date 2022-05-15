@@ -22,7 +22,7 @@ public class SpawnerScript : MonoBehaviour
 
         pos.y = 1;
 
-        if(Vector3.Distance(player.transform.position, pos)>distance )
+        if(Vector3.Distance(player.transform.position, pos)>distance)
         {
             GameObject newEnemy = Instantiate(enemyType, pos, Quaternion.identity);
             enemies.Add(newEnemy);
