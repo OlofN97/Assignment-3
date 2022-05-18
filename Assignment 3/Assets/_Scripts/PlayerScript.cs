@@ -21,7 +21,7 @@ public class PlayerScript : MonoBehaviour
     private float timeElapsedSinceLastShoot;
     private ObjectPool<Bullet> bulletPool;
 
-
+    public int objSpawned;
     void Start()
     {
         cam = Camera.main;
@@ -58,7 +58,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     Instantiate(bullet, transform.position, transform.rotation, bulletParent);
                 }
-
+                objSpawned++;
 
                 timeElapsedSinceLastShoot -= rateOfFire;
             }

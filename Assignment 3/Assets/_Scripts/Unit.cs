@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
     public void Initialise()
     {
         timer = 0;
-        speed = 3;
+        speed = 0.4f;
         target = GameObject.FindGameObjectWithTag("Player").transform.position;
     }
 
@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour
         //timer += Time.deltaTime;
     }
 
-    void Die()
+    public void Die()
     {
         if (thisPool != null)
             thisPool.DisableObject(this);

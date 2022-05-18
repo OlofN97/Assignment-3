@@ -15,10 +15,13 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] float distance;
     [SerializeField] Transform unitParent;
+    [SerializeField] float decreseSpawnRate;
 
     float spawnTimer;
 
     ObjectPool<Unit> unitPool;
+
+    public int objSpawned;
 
     public bool UseObjectPool
     {       
@@ -56,10 +59,15 @@ public class Spawner : MonoBehaviour
                 {
                     spawnedUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity, unitParent);
                 }
+                objSpawned++;
 
                 spawnedUnit.Initialise();
 
                 spawnTimer -= timeBetweenSpawns;
+                if (timeBetweenSpawns > decreseSpawnRate)
+                {
+                    timeBetweenSpawns -= decreseSpawnRate;
+                }
 
             }
         }

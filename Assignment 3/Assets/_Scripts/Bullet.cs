@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float bulletTimer = 3;
 
     private float timer;
+    private bool collieded;
 
     private void Start()
     {
@@ -19,6 +20,8 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position = transform.position + transform.forward * bulletVelocity * Time.deltaTime;
+
+
 
         if (timer >= bulletTimer)
             //Die();
@@ -37,24 +40,22 @@ public class Bullet : MonoBehaviour
     void OnEnable()
     {
         timer = 0;
+        collieded = false;
     }
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerStay(Collider collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (gameObject.activeInHierarchy && collision.gameObject.activeInHierarchy)
         {
-            if (thisPool != null)
+            if (!collieded)
             {
-                thisPool.DisableObject(this);
-                collision.gameObject.GetComponent<Unit>().thisPool.DisableObject(collision.gameObject.GetComponent<Unit>());
+                if (collision.gameObject.tag == "Enemy")
+                {
+                    collision.gameObject.GetComponent<Unit>().Die();
+                    Die();
+                    collieded = true;
+                }
             }
-            else
-            {
-                Destroy(gameObject);
-                Destroy(collision.gameObject);
-                Debug.Log("Enemy died.");
-            }
-
         }
     }
 }
