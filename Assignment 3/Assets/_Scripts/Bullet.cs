@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
         transform.position = transform.position + transform.forward * bulletVelocity * Time.deltaTime;
 
         if (timer >= bulletTimer)
-            Die();
+            //Die();
 
         timer += Time.deltaTime;
     }
@@ -37,5 +37,15 @@ public class Bullet : MonoBehaviour
     void OnEnable()
     {
         timer = 0;
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+            Debug.Log("Enemy died.");
+        }
     }
 }
