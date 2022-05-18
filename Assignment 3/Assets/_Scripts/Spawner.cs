@@ -4,7 +4,7 @@ public class Spawner : MonoBehaviour
 {
     public Unit unitToSpawn;
 
-    private bool useObjectPool;
+    public bool useObjectPool;
 
     [SerializeField] int poolStartCapacity = 25;
 

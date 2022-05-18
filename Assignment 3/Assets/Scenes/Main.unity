@@ -166,12 +166,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitToSpawn: {fileID: 339726419352151016, guid: 1883421d8042dbf4bb7be8bd5dd6fe90,
     type: 3}
-  useObjectPool: 1
+  useObjectPool: 0
   poolStartCapacity: 25
   timeBetweenSpawns: 0.001
   minMaxSpawnRadius: {x: 25, y: 45}
   Player: {fileID: 257872710}
   distance: 20
+  unitParent: {fileID: 0}
 --- !u!1 &257872710
 GameObject:
   m_ObjectHideFlags: 0
