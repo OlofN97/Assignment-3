@@ -5,7 +5,7 @@ public class Unit : MonoBehaviour
     float timer;
     float speed;
     Vector3 target;
-    ObjectPool<Unit> thisPool;
+    public ObjectPool<Unit> thisPool;
 
     public void SetThisPool(ObjectPool<Unit> value) => thisPool = value;
 
@@ -20,10 +20,10 @@ public class Unit : MonoBehaviour
     {
         Move();
 
-        if (timer >= 1)
-            Die();
+        //if (timer >= 1)
+        //    Die();
 
-        timer += Time.deltaTime;
+        //timer += Time.deltaTime;
     }
 
     void Die()

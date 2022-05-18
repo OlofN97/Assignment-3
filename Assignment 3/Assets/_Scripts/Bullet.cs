@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         if (timer >= bulletTimer)
             //Die();
 
-        timer += Time.deltaTime;
+            timer += Time.deltaTime;
     }
 
     void Die()
@@ -43,9 +43,18 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
-            Debug.Log("Enemy died.");
+            if (thisPool != null)
+            {
+                thisPool.DisableObject(this);
+                collision.gameObject.GetComponent<Unit>().thisPool.DisableObject(collision.gameObject.GetComponent<Unit>());
+            }
+            else
+            {
+                Destroy(gameObject);
+                Destroy(collision.gameObject);
+                Debug.Log("Enemy died.");
+            }
+
         }
     }
 }
